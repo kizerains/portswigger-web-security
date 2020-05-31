@@ -81,4 +81,19 @@
   - Later, when handling a different HTTP request, the application retrieves the stored data and incorporates it into an SQL query in an unsafe way 
 </br>
 
+### Database-specific factors 
+- Some SQL languages are the same across all database platofrms therefore SQL exploits work identically across differnet platforms 
+- However some differences can be found in the following cases: 
+  - Syntax for string concatenation 
+  - Comments 
+  - Batched (or stacked) queries
+  - Platform-specific APIs
+  - Error messages 
+</br>
 
+### How to prevent SQL injection 
+- SQLi can be prevented by using parameterised queries instead of string concatenatino withing the query.
+- The following code is vulnerable to SQLi: `String query = "SELECT * FROM products WHERE category = '"+ input + "'";`
+- Parameterised queries can be used where untrusted input appears as data within the query 
+- Application functionality that places untrusted data into those parts of the query will need to take a different approach, such as white-listing permitted input values, or using differnt logic to deliver required behaviour.
+- For parameterised queries to be effective, the string that is used must always be a hard coded constant.
