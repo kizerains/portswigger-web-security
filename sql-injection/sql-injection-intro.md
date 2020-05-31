@@ -30,3 +30,21 @@
 - The SQL query would now look like this: `SELECT * FROM products WHERE category = 'Gifts'--' AND released = 1`
 - The double dash is a comment indicator in SQL there removes the reaminder of the query so it no longer includes `AND released = 1`
 </br>
+
+### Subverting application logic 
+- A query used for username:password login would look something like this: `SELECT * FROM users WHERE username = 'wiener' AND password = 'bluecheese'`
+- An attacker can log in as any user without a password simply by using the SQL comment indicator `--`
+- Submitting the username `administrator--` and a blank password results in the following query: `SELECT * FROM users WHERE username = 'administrator'--' AND password = ''`
+- This query would return the username 'administrator' and logins
+</br>
+
+### Retrieving data from other database tables 
+- When the results of an SQL query are returned within the application's responses, an attacker can use SQL injection to retrieve data from other tables within the database 
+- This is done with the `UNION` keyword 
+- This lets you execute an additional `SELECT` query and append the results to the original query
+- An example query is as follows: `SELECT name, description FROM products WHERE category = 'Gifts'`
+- An attacker can submit the input: `' UNION SELECT username, password FROM users--`
+- This will return all usernames and passwords along with the names and descriptions of products 
+</br>
+
+### Examining the database
